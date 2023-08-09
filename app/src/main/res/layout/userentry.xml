@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:cardCornerRadius="8dp"
+        android:layout_margin="8dp"
+
+        app:cardBackgroundColor="#7181A1">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       android:gravity="center"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:weightSum="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:text="Name "
+            android:textSize="12dp"
+            android:textColor="@color/white"
+          android:paddingLeft="12dp"
+            android:layout_height="match_parent">
+        </TextView>
+        <TextView
+            android:id="@+id/txt1"
+            android:layout_width="0dp"
+            android:layout_weight="0.8"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:layout_height="match_parent">
+
+        </TextView>
+    </LinearLayout>
+        <LinearLayout
+            android:weightSum="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="0.2"
+                android:text="Password "
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_height="match_parent">
+            </TextView>
+            <TextView
+                android:id="@+id/txt2"
+                android:layout_width="0dp"
+                android:layout_weight="0.8"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:layout_height="match_parent">
+
+            </TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+</LinearLayout>

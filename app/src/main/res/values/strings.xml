@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="is_remember">Is Remember</string>
+    <string name="forget_pass">Forget Password</string>
+</resources>
