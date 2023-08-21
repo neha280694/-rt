@@ -23,7 +23,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase DB) {
-        DB.execSQL("create Table Userdetails(name TEXT primary key, password TEXT)");
+        DB.execSQL("create Table Userdetails(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,name TEXT primary key, password TEXT)");
     }
 
     @Override
@@ -32,7 +32,6 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     }
     public  boolean addContact(String name,String password){
-
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues values =new ContentValues();
         values.put("name",name);

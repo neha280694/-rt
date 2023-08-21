@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class userlist extends AppCompatActivity {
     RecyclerView recyclerView;
-    ArrayList<String> name,password;
+    ArrayList<String> name,password,id;
     MyDBHelper DB;
     MyAdapter adapter;
 
@@ -23,8 +23,9 @@ public class userlist extends AppCompatActivity {
         DB= new MyDBHelper(this);
         name=new ArrayList<>();
         password=new ArrayList<>();
+
         recyclerView=findViewById(R.id.recyclelist);
-        adapter= new MyAdapter(this,name,password);
+        adapter= new MyAdapter(this,name,password,id);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         displaydata();
@@ -37,8 +38,11 @@ public class userlist extends AppCompatActivity {
             return;
         }else {
             while (cursor.moveToNext()){
+
                 name.add(cursor.getString(0));
                 password.add(cursor.getString(1));
+
+
 
             }
         }

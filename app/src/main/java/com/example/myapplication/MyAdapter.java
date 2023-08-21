@@ -13,14 +13,16 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private Context context;
-    private ArrayList namet,passwordt;
+    private ArrayList namet,passwordt,id;
 
-    public MyAdapter(Context context, ArrayList namet, ArrayList passwordt) {
+    public MyAdapter(Context context, ArrayList namet, ArrayList passwordt,ArrayList id) {
         this.context = context;
         this.namet = namet;
         this.passwordt = passwordt;
-    }
+        this.id=id;
 
+
+    }
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,8 +34,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.namet.setText((String.valueOf(namet.get(position))));
         holder.passwordt.setText((String.valueOf(passwordt.get(position))));
-
+       int i=1;
+       int j= i+holder.getAbsoluteAdapterPosition();
+        holder.id.setText("" + j +".");
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -41,11 +47,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView namet,passwordt;
+        TextView namet,passwordt,id;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             namet=itemView.findViewById(R.id.txt1);
             passwordt=itemView.findViewById(R.id.txt2);
+            id=itemView.findViewById(R.id.sn);
+
+
+
         }
     }
 }

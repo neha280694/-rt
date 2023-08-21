@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 
@@ -16,128 +17,94 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.material.textfield.TextInputEditText;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.text.ParseException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
-public class weatherforcast extends AppCompatActivity {
-    String CITY1;
-    TextView addressT, updated_atT, statusT, tempT, temp_minTxt, temp_maxT, sunriseT, sunsetT, windT, pressureT, humidityT;
-    EditText CITY;
+
+public class weatherforcast extends AppCompatActivity implements IWeatherCallbackListener {
+    TextView tvCity;
+    TextView tvCountry;
+    Button btnGet5DaysWeather;
+    ImageView ivWeatherIcon;
+    RecyclerView rvWeatherData;
+    AutoCompleteTextView etCityName;
+    String OPEN_WEATHER_APP_ID = "b317aca2e83ad16e219ff2283ca837d5";
+    String ACCU_WEATHER_APP_ID = "87ad516d1d4842838fcfebe843d933b1";
+    LocationSearchModel mLocationSearchModel;
+    Button btnGetCurrentWeather;
+    TextView tvWeather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weatherforcast);
-        findViewById(R.id.presd).setVisibility(View.GONE);
-        findViewById(R.id.sund).setVisibility(View.GONE);
-        findViewById(R.id.sunsd).setVisibility(View.GONE);
-        findViewById(R.id.wnd).setVisibility(View.GONE);
-        findViewById(R.id.humd).setVisibility(View.GONE);
-        CITY = findViewById(R.id.city);
+        tvCity=findViewById(R.id.tv_city);
+        tvCountry =findViewById(R.id.tv_country);
+        btnGet5DaysWeather=findViewById(R.id.btn_get_5_days_weather);
+        ivWeatherIcon=findViewById(R.id.iv_weather_icon);
+        rvWeatherData=findViewById(R.id.rv_weather_data);
+        etCityName=findViewById(R.id.et_city_name);
+        btnGetCurrentWeather=findViewById(R.id.btn_get_weather);
+        tvWeather=findViewById(R.id.tv_info);
+        etCityName.setThreshold(2);
+        etCityName.setAdapter(new AutoCompleteAdapter(weatherforcast.this, ACCU_WEATHER_APP_ID));
+        rvWeatherData.setLayoutManager(new LinearLayoutManager(this));
+        btnGetCurrentWeather.setOnClickListener(view -> WeatherConditions.getOpenWeatherData(etCityName.getText().toString(), OPEN_WEATHER_APP_ID, weatherforcast.this));
+        btnGet5DaysWeather.setOnClickListener(view -> WeatherConditions.getOpenWeatherData5Days(etCityName.getText().toString(), OPEN_WEATHER_APP_ID, weatherforcast.this));
+        etCityName.setOnItemClickListener((adapterView, view, i, l) -> {
+            mLocationSearchModel = (LocationSearchModel) adapterView.getAdapter().getItem(i);
+            etCityName.setText(mLocationSearchModel.getLocalizedName());
+            WeatherConditions.getAccuWeatherData(mLocationSearchModel.getKey(), ACCU_WEATHER_APP_ID, weatherforcast.this, true);
+            WeatherConditions.getAccuWeatherData5Days(mLocationSearchModel.getKey(), ACCU_WEATHER_APP_ID, weatherforcast.this, true);
+
+        });
     }
+    @Override
+    public void getWeatherData(Object weatherModel, Boolean success, String errorMsg) {
+        if (success) {
+            if (weatherModel instanceof OpenWeatherModel) {
+                OpenWeatherModel openWeatherModel = (OpenWeatherModel) weatherModel;
+                tvCountry.setText("Country -- " + openWeatherModel.getSys().getCountry());
+                tvCity.setText("City -- " + openWeatherModel.getName());
+                tvWeather.setText("Temperature -- " + String.valueOf(openWeatherModel.getMain().getTemp()));
+                Glide.with(weatherforcast.this)
+                        .load("http://openweathermap.org/img/w/" + openWeatherModel.getWeather().get(0).getIcon() + ".png")
+                        .into(ivWeatherIcon);
 
-    public void run(View view) {
-        CITY1 = CITY.getText().toString();
-        new weatherTask().execute();
-    }
+            } else if (weatherModel instanceof OpenWeather5DayModel) {
 
-    class weatherTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            findViewById(R.id.loader).setVisibility(View.VISIBLE);
-            findViewById(R.id.mainContainer).setVisibility(View.GONE);
-            findViewById(R.id.errorText).setVisibility(View.GONE);
-            findViewById(R.id.city).setVisibility(View.GONE);
-            findViewById(R.id.button2).setVisibility(View.GONE);
-        }
+                OpenWeather5DayModel weatherBean = (OpenWeather5DayModel) weatherModel;
+                try {
+                    rvWeatherData.setAdapter(new RecyclerAdapter(weatherforcast.this, weatherBean.getMinMaxTemp()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
-        protected String doInBackground(String args[]) {
-            String response = HttpRequest.excuteGet("https://api.openweathermap.org/data/2.5/weatherq=" + CITY1 + "&units=metric&appid=73cbebdd0322acd49bda6ede059b2b18");
-            return response;
-        }
+            } else if (weatherModel instanceof AccuWeatherModel) {
+                AccuWeatherModel accuWeatherModel = (AccuWeatherModel) weatherModel;
+                tvWeather.setText("Current Temperature - " + String.valueOf(accuWeatherModel.getTemperature().getMetric().getValue()));
+                tvCity.setText("City - " + mLocationSearchModel.getLocalizedName());
+                tvCountry.setText("Country - " + mLocationSearchModel.getCountry().getLocalizedName());
 
-        @Override
-        protected void onPostExecute(String result) {
-            addressT = findViewById(R.id.address);
-            updated_atT = findViewById(R.id.updated_at);
-            statusT = findViewById(R.id.status);
-            tempT = findViewById(R.id.temp);
-            temp_minTxt = findViewById(R.id.temp_min);
-            temp_maxT = findViewById(R.id.temp_max);
-            sunriseT = findViewById(R.id.sunrise);
-            sunsetT = findViewById(R.id.sunset);
-            windT = findViewById(R.id.wind);
-            pressureT = findViewById(R.id.pressure);
-            humidityT = findViewById(R.id.humidity);
-            try {
-                JSONObject jsonObj = new JSONObject(result);
-                JSONObject main = jsonObj.getJSONObject("main");
-                JSONObject sys = jsonObj.getJSONObject("sys");
-                JSONObject wind = jsonObj.getJSONObject("wind");
-                JSONObject weather = jsonObj.getJSONArray("weather").getJSONObject(0);
-                Long updatedAt = jsonObj.getLong("dt");
-                String updatedAtText = "Updated at: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(new Date(updatedAt * 1000));
-                String temp = main.getString("temp") + "°C";
-                String tempMin = "Min Temp: " + main.getString("temp_min") + "°C";
-                String tempMax = "Max Temp: " + main.getString("temp_max") + "°C";
-                String pressure = main.getString("pressure");
-                String humidity = main.getString("humidity");
-                Long sunrise = sys.getLong("sunrise");
-                Long sunset = sys.getLong("sunset");
-                String windSpeed = wind.getString("speed");
-                String weatherDescription = weather.getString("description");
-                String address = jsonObj.getString("name") + ", " + sys.getString("country");
-                addressT.setText(address);
-                updated_atT.setText(updatedAtText);
-                statusT.setText(weatherDescription.toUpperCase());
-                tempT.setText(temp);
-                temp_minTxt.setText(tempMin);
-                temp_maxT.setText(tempMax);
-                sunriseT.setText(new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date(sunrise * 1000)));
-                sunsetT.setText(new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date(sunset * 1000)));
-                windT.setText(windSpeed);
-                pressureT.setText(pressure);
-                humidityT.setText(humidity);
-                findViewById(R.id.loader).setVisibility(View.GONE);
-                findViewById(R.id.mainContainer).setVisibility(View.VISIBLE);
-                findViewById(R.id.presd).setVisibility(View.VISIBLE);
-                findViewById(R.id.sund).setVisibility(View.VISIBLE);
-                findViewById(R.id.sunsd).setVisibility(View.VISIBLE);
-                findViewById(R.id.wnd).setVisibility(View.VISIBLE);
-                findViewById(R.id.humd).setVisibility(View.VISIBLE);
-            } catch (JSONException e) {
-                findViewById(R.id.loader).setVisibility(View.GONE);
-                findViewById(R.id.errorText).setVisibility(View.VISIBLE);
+                Glide.with(weatherforcast.this)
+                        .load("http://apidev.accuweather.com/developers/Media/Default/WeatherIcons/" + String.format("%02d", accuWeatherModel.getWeatherIcon()) + "-s" + ".png")
+                        .into(ivWeatherIcon);
+
+            } else if (weatherModel instanceof AccuWeather5DayModel) {
+
+                AccuWeather5DayModel accuWeather5DayModel = (AccuWeather5DayModel) weatherModel;
+                rvWeatherData.setAdapter(new RecyclerAdapterAccuWeather(weatherforcast.this, accuWeather5DayModel));
+
             }
         }
     }
