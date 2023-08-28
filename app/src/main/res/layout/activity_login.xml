@@ -40,14 +40,17 @@
             android:id="@+id/text_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextInputLayout">
+            >
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/edtUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:background="@drawable/border1"
                 android:layout_margin="10dp"
+
+
+
                 android:hint="User Name" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -62,18 +65,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            app:passwordToggleEnabled="true"
-            style="@style/TextInputLayout">
 
-            <androidx.appcompat.widget.AppCompatEditText
+          >
+
+            <EditText
                 android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
+
+                android:background="@drawable/border1"
                 android:layout_margin="10dp"
                 android:hint="Password">
 
-            </androidx.appcompat.widget.AppCompatEditText>
+            </EditText>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
@@ -93,7 +97,11 @@
                 android:id="@+id/isRemember"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left">
+                android:theme="@style/SCBSwitch"
+                android:gravity="center"
+                android:layout_margin="10dp"
+
+               >
             </androidx.appcompat.widget.SwitchCompat>
 
             <TextView
