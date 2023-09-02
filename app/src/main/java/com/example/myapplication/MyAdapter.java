@@ -10,16 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private Context context;
-    private ArrayList namet,passwordt,id;
+    private List<logindetaild> mArrayList;
 
-    public MyAdapter(Context context, ArrayList namet, ArrayList passwordt,ArrayList id) {
+
+    public MyAdapter(Context context, List<logindetaild> mArrayList) {
         this.context = context;
-        this.namet = namet;
-        this.passwordt = passwordt;
-        this.id=id;
+       this.mArrayList=mArrayList;
 
 
     }
@@ -32,8 +32,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.namet.setText((String.valueOf(namet.get(position))));
-        holder.passwordt.setText((String.valueOf(passwordt.get(position))));
+        holder.namet.setText(mArrayList.get(position).getName());
+        holder.passwordt.setText(mArrayList.get(position).getPassword());
        int i=1;
        int j= i+holder.getAbsoluteAdapterPosition();
         holder.id.setText("" + j +".");
@@ -43,7 +43,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        return namet.size();
+        return mArrayList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -57,5 +57,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
         }
+    }
+    public void updateData(ArrayList<logindetaild> newData) {
+        mArrayList.clear();
+        mArrayList.addAll(newData);
+        notifyDataSetChanged();
     }
 }
