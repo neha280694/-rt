@@ -32,11 +32,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.namet.setText(mArrayList.get(position).getName());
-        holder.passwordt.setText(mArrayList.get(position).getPassword());
-       int i=1;
-       int j= i+holder.getAbsoluteAdapterPosition();
-        holder.id.setText("" + j +".");
+        String name = mArrayList.get(position).getName();
+
+        // Check if the name has more than ten characters
+        if (name.length() > 10) {
+            // Display the first ten characters followed by a star symbol
+            name = name.substring(0, 10) + "....";
+        }
+
+        holder.namet.setText(name);
+
+        // Set the password with stars
+        String password = mArrayList.get(position).getPassword();
+        StringBuilder maskedPassword = new StringBuilder();
+        for (int i = 0; i < password.length(); i++) {
+            maskedPassword.append("*");
+        }
+        holder.passwordt.setText(maskedPassword.toString());
+
+        int i = 1;
+        int j = i + holder.getAbsoluteAdapterPosition();
+        holder.id.setText("" + j + ".");
     }
 
 

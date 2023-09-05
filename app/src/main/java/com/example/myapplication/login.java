@@ -30,6 +30,7 @@ public class login extends AppCompatActivity {
         edtUserName=findViewById(R.id.edtUserName);
         edtPassword=findViewById(R.id.edtPassword);
         DB = new  MyDBHelper(this);
+
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

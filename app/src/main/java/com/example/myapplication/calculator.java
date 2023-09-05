@@ -117,27 +117,32 @@ public class calculator extends AppCompatActivity {
         be.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    //String input = inputStringBuilder.toString();
-                    //Log.d("Input", "Input string: " + input); // Log input
-                    if (!textviewResult.getText().toString().isEmpty()) {
-                        double result = evaluateExpression(textviewResult.getText().toString());
-                        int roundedResult = (int) result; // Convert to integer
-                        textviewResult.setText(String.valueOf(roundedResult));
+                String input = textviewResult.getText().toString().trim();
 
-                       // textviewResult.setText(String.valueOf(result));
-                        //inputStringBuilder.setLength(0); // Clear input
-                    } else {
-                        textviewResult.setText("Error: No input");
+                if (!input.isEmpty()) {
+                    try {
+                        double result = evaluateExpression(input);
+
+                        if (result % 1 == 0) {
+                            // If the result is an integer, display it as an integer
+                            textviewResult.setText(String.valueOf((int) result));
+                        } else {
+                            // If the result has a fractional part, display it as a double
+                            textviewResult.setText(String.valueOf(result));
+                        }
+                    } catch (NumberFormatException e) {
+                        textviewResult.setText("Error: Invalid input");
+                    } catch (ArithmeticException e) {
+                        textviewResult.setText("Error: Division by zero");
                     }
-                } catch (Exception e) {
-                    textviewResult.setText("Error");
+                } else {
+                    textviewResult.setText("Error: No input");
                 }
             }
-
         });
-
     }
+
+
     private void buttone(Button x, String y) {
         x.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,6 +192,9 @@ public class calculator extends AppCompatActivity {
 
         return result;
     }
+
+
+
 
 
 
