@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -54,16 +55,19 @@ public class calculator extends AppCompatActivity {
         buttone(b8, "8");
         buttone(b9, "9");
         buttone(b10, "0");
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.clickb);
 
         bclr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.start();
                 textviewResult.setText(" ");
             }
         });
         bp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.start();
                 String currentText = textviewResult.getText().toString();
                 if (currentText.length() == 0 || currentText.charAt(currentText.length() - 1) != '+') {
                     textviewResult.append("+");
@@ -74,6 +78,7 @@ public class calculator extends AppCompatActivity {
         bmul.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.start();
                 String currentText = textviewResult.getText().toString();
                 if (currentText.length() == 0 || currentText.charAt(currentText.length() - 1) != '*') {
                     textviewResult.append("*");
@@ -83,6 +88,7 @@ public class calculator extends AppCompatActivity {
         bdiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.start();
                 String currentText = textviewResult.getText().toString();
                 if (currentText.length() == 0 || currentText.charAt(currentText.length() - 1) != '/') {
                     textviewResult.append("/");
@@ -93,6 +99,7 @@ public class calculator extends AppCompatActivity {
         bm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.start();
                 String currentText = textviewResult.getText().toString();
                 if (currentText.length() == 0 || currentText.charAt(currentText.length() - 1) != '-') {
                     textviewResult.append("-");
@@ -114,9 +121,12 @@ public class calculator extends AppCompatActivity {
     private void setEqualsButtonListener() {
         // Set OnClickListener for the equal button
         Button be = findViewById(R.id.equal);
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.clickb);
         be.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.start();
+
                 String input = textviewResult.getText().toString().trim();
 
                 if (!input.isEmpty()) {
@@ -144,10 +154,13 @@ public class calculator extends AppCompatActivity {
 
 
     private void buttone(Button x, String y) {
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.clickb);
         x.setOnClickListener(new View.OnClickListener() {
             @Override
 
             public void onClick(View v) {
+                mp.start();
+
                 textviewResult.setVisibility(View.VISIBLE);
                 textviewResult.append(y);
 
