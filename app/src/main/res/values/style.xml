@@ -49,5 +49,26 @@
         <item name="android:background">@null</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+    <style name="Tooltip" parent="Widget.MaterialComponents.Tooltip">
+        <!--This is the Tooltip textAppearance -->
+        <item name="android:textAppearance">@style/TextAppearance.Tooltip</item>
+        <!--This is the Tooltip Background Color -->
+        <item name="backgroundTint">@color/colorAccent</item>
+    </style>
+
+    <style name="TextAppearance.Tooltip" parent="TextAppearance.MaterialComponents.Tooltip">
+        <!--This is the Tooltip Text Color -->
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="SliderTheme" parent="Widget.MaterialComponents.Slider">
+        <!-- Add attributes here -->
+
+        <item name="trackColorActive">@color/colorAccent</item>
+        <item name="trackColorInactive">@color/colorAccent1</item>
+        <item name="tickColor">@color/colorAccent1</item>
+
+        <item name="thumbColor">@color/colorAccent</item>
+
+    </style>
 
 </resources>
