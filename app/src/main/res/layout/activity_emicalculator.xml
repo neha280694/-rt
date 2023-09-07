@@ -47,10 +47,9 @@
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="16dp"
-
-
                 android:gravity="center"></TextView>
             <TextView
+                android:id="@+id/txttotalamount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -94,6 +93,7 @@
                     android:layout_marginTop="40dp"
                     android:orientation="horizontal">
                     <TextView
+
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:gravity="center"
@@ -101,20 +101,26 @@
                         android:textSize="16dp"
                         android:layout_weight="0.6"></TextView>
                     <TextView
+                        android:id="@+id/txtloana"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:text="100000000"
+                        android:text="1000"
                         android:textSize="16dp"
                         android:layout_weight="0.4"></TextView>
                 </LinearLayout>
                 <com.google.android.material.slider.RangeSlider
+                    android:id="@+id/rangeloan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/SliderTheme"
                     android:layout_marginLeft="10dp"
+                    android:stepSize="1000"
+                    android:valueFrom="1000"
+                    android:valueTo="100000"
                     app:labelStyle="@style/Tooltip"
-                    android:layout_marginRight="10dp"></com.google.android.material.slider.RangeSlider>
+                    android:layout_marginRight="10dp">
+                </com.google.android.material.slider.RangeSlider>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -127,20 +133,28 @@
                         android:textSize="16dp"
                         android:layout_weight="0.6"></TextView>
                     <TextView
+                        android:id="@+id/perc"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:text="10%"
+
                         android:textSize="16dp"
+                        android:text="1%"
                         android:layout_weight="0.4"></TextView>
                 </LinearLayout>
                 <com.google.android.material.slider.RangeSlider
+                    android:id="@+id/rangeperc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:stepSize="1"
+                    android:valueFrom="1"
+                    android:valueTo="100"
                     style="@style/SliderTheme"
                     app:labelStyle="@style/Tooltip"
-                    android:layout_marginRight="10dp"></com.google.android.material.slider.RangeSlider>
+                    android:layout_marginRight="10dp">
+
+                </com.google.android.material.slider.RangeSlider>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -154,20 +168,25 @@
                         android:textSize="16dp"
                         android:layout_weight="0.6"></TextView>
                     <TextView
+                        android:id="@+id/txty"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:text="20 years"
+                        android:text="1 years"
                         android:textSize="16dp"
                         android:layout_weight="0.4"></TextView>
                 </LinearLayout>
 
                 <com.google.android.material.slider.RangeSlider
+                    android:id="@+id/rangeyear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     app:labelStyle="@style/Tooltip"
                     style="@style/SliderTheme"
+                    android:stepSize="1"
+                    android:valueFrom="1"
+                    android:valueTo="20"
                     android:layout_marginRight="10dp"></com.google.android.material.slider.RangeSlider>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -175,6 +194,7 @@
                     android:gravity="bottom"
                     android:orientation="vertical">
                    <androidx.appcompat.widget.AppCompatButton
+                       android:id="@+id/btn1"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:textColor="@color/white"
