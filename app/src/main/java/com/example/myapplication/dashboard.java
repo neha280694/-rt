@@ -25,6 +25,7 @@ public class dashboard extends AppCompatActivity {
         usrd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(dashboard.this,userlist.class));
 
             }
@@ -32,6 +33,7 @@ public class dashboard extends AppCompatActivity {
        weatherd.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+
                startActivity(new Intent(dashboard.this,calculator.class));
 
 
@@ -40,6 +42,7 @@ public class dashboard extends AppCompatActivity {
        serverd.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+
                startActivity(new Intent(dashboard.this,MainActivity.class));
 
 
@@ -48,6 +51,7 @@ public class dashboard extends AppCompatActivity {
        loanemi.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+
                startActivity(new Intent(dashboard.this,emicalculator.class));
            }
        });

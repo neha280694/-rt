@@ -36,8 +36,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.4"
-            android:gravity="center"
+            android:layout_weight="0.2"
+
             android:background="@color/colorAccent1"
             android:orientation="vertical">
             <TextView
@@ -46,7 +46,7 @@
                 android:text="YOUR LOAN EMI IS"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:gravity="center"></TextView>
             <TextView
                 android:id="@+id/txttotalamount"
@@ -55,12 +55,12 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:textSize="40dp"
+                android:textSize="38dp"
                 android:shadowDx="2"
                 android:shadowDy="2"
                 android:shadowRadius="1"
                 android:shadowColor="@color/white"
-                android:text="Rs. 200000"></TextView>
+                android:text="Rs. 0"></TextView>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,29 +71,38 @@
                 android:shadowRadius="1"
                 android:shadowColor="@color/white"
 
-                android:textSize="18dp"
+                android:textSize="14dp"
                 android:text="per month"></TextView>
+
         </LinearLayout>
-        <androidx.cardview.widget.CardView
+           <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:cardCornerRadius="16dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="-50dp"
-            android:layout_weight="0.5">
+            android:layout_weight="0.7">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
+                android:gravity="bottom"
                 android:orientation="vertical">
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChart"
+                    android:layout_width="match_parent"
+                   android:layout_gravity="bottom"
+
+                    android:layout_height="210dp">
+
+                </com.github.mikephil.charting.charts.PieChart>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:orientation="horizontal">
-                    <TextView
 
+                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:gravity="center"
@@ -188,26 +197,12 @@
                     android:valueFrom="1"
                     android:valueTo="20"
                     android:layout_marginRight="10dp"></com.google.android.material.slider.RangeSlider>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="bottom"
-                    android:orientation="vertical">
-                   <androidx.appcompat.widget.AppCompatButton
-                       android:id="@+id/btn1"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:textColor="@color/white"
-                       android:text="submit"
-                       android:background="@drawable/button_background">
 
-                   </androidx.appcompat.widget.AppCompatButton>
-
-                </LinearLayout>
             </LinearLayout>
 
 
         </androidx.cardview.widget.CardView>
+
 
 
     </LinearLayout>

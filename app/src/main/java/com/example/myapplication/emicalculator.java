@@ -1,18 +1,28 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.slider.RangeSlider;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class emicalculator extends AppCompatActivity {
@@ -33,7 +43,42 @@ public class emicalculator extends AppCompatActivity {
         txty=findViewById(R.id.txty);
         rangeloan=findViewById(R.id.rangeloan);
         rangeyear=findViewById(R.id.rangeyear);
-        btn1=findViewById(R.id.btn1);
+        PieChart pieChart = findViewById(R.id.pieChart);
+        // Inside your initialization code:
+        pieChart.getDescription().setEnabled(false); // Disable chart description
+        pieChart.setDrawEntryLabels(false); // Disable labels on chart slices
+        pieChart.setDrawHoleEnabled(false); // Disable the central hole
+
+// Create a Legend and customize its properties
+        Legend legend = pieChart.getLegend();
+        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        legend.setDrawInside(false);
+        legend.setXEntrySpace(10f); // Adjust the horizontal space between legend and chart
+        legend.setYEntrySpace(0f); // Adjust the vertical space between legend entries
+        // Rest of your code remains the same
+        // Create a TextWatcher for each TextView
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // When the text in any TextView changes, update the PieChart
+                updatePieChart(perc, txtloana, txty, pieChart);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        };
+
+// Add the TextWatcher to each TextView
+        perc.addTextChangedListener(textWatcher);
+        txtloana.addTextChangedListener(textWatcher);
+        txty.addTextChangedListener(textWatcher);
+
         decimalFormat = new DecimalFormat("#,##0.00");
 
         rangeperc.addOnChangeListener(new RangeSlider.OnChangeListener() {
@@ -47,7 +92,7 @@ public class emicalculator extends AppCompatActivity {
                 } else {
                     perc.setText("No values selected");
                 }
-               // updateEMI();
+                updateEMI();
 
             }
 
@@ -63,7 +108,7 @@ public class emicalculator extends AppCompatActivity {
                 } else {
                     txtloana.setText("No values selected");
                 }
-                //updateEMI();
+                updateEMI();
 
             }
         });
@@ -78,21 +123,11 @@ public class emicalculator extends AppCompatActivity {
                 } else {
                     txty.setText("No values selected");
                 }
-                //updateEMI();
-            }
-        });
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 updateEMI();
-
             }
         });
+
     }
-
-
-
-
     private void updateEMI() {
         // Retrieve the values from RangeSliders
         float interestRate = rangeperc.getValues().get(0);
@@ -130,6 +165,49 @@ public class emicalculator extends AppCompatActivity {
                 / (Math.pow(1 + monthlyInterestRate, totalPayments) - 1);
 
         return emi;
+    }
+    private void updatePieChart(TextView perc, TextView txtloana, TextView txty, PieChart pieChart) {
+        String interestRateText = perc.getText().toString();
+        String loanAmountText = txtloana.getText().toString();
+        String loanTenureText = txty.getText().toString();
+
+        // Remove percentage symbols from the input strings
+        interestRateText = interestRateText.replace("%", "");
+        loanAmountText = loanAmountText.replace("%", "");
+
+        // Extract numeric part of loanTenureText
+        loanTenureText = loanTenureText.replaceAll("[^0-9.]+", ""); // Keep only digits and decimals
+
+        try {
+            // Parse the cleaned strings as floats
+            float interestRate = Float.parseFloat(interestRateText);
+            float loanAmount = Float.parseFloat(loanAmountText);
+            float loanTenure = Float.parseFloat(loanTenureText);
+
+            // Proceed with the calculations using the parsed float values
+            double emi = calculateEMI(interestRate, loanAmount, loanTenure);
+
+            // Create a PieEntry list with loan data
+            ArrayList<PieEntry> entries = new ArrayList<>();
+            entries.add(new PieEntry((float) emi, "Emi"));
+            entries.add(new PieEntry(loanAmount, "Loan Amount"));
+            entries.add(new PieEntry((interestRate / 100) * loanAmount, "Interest Paid"));
+            int[] colors = {getColor(R.color.colorAccent1), getColor(R.color.colorAccent), getColor(R.color.teal_200)};
+            // Create a PieDataSet
+            PieDataSet dataSet = new PieDataSet(entries, "");
+            dataSet.setColors(colors);
+
+            // Create a PieData object and set the dataSet
+            PieData pieData = new PieData(dataSet);
+            pieData.setValueTextColor(Color.WHITE);
+
+            // Set data to the PieChart
+            pieChart.setData(pieData);
+            pieChart.invalidate();
+        } catch (NumberFormatException e) {
+            // Handle the exception if the parsing fails
+            e.printStackTrace();
+        }
     }
 
 

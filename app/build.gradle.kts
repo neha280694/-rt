@@ -13,8 +13,12 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
+
+
 
     buildTypes {
         release {
@@ -24,7 +28,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+
     }
+
 
 
 
@@ -32,8 +38,15 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        getByName("main") {
+            assets {
+                srcDirs("src\\main\\assets", "src\\main\\assets\\models")
+            }
 
+        }
 
+    }
 
 
 }
@@ -53,11 +66,32 @@ dependencies {
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
     implementation ("com.android.volley:volley:1.2.1")
 
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
 // below line is used for image loading library
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
 
+    // define any required OkHttp artifacts without version
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
     implementation ("com.squareup.picasso:picasso:2.71828")
-
     implementation ("com.google.android.gms:play-services-location:21.0.1")
+    implementation ("androidx.room:room-runtime:2.3.0")
+    implementation ("androidx.media:media:1.3.1")
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
