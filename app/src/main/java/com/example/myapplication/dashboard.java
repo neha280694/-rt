@@ -12,7 +12,7 @@ public class dashboard extends AppCompatActivity {
   private LinearLayout usrd;
   private LinearLayout weatherd;
     private TextView serverd;
-    private LinearLayout loanemi;
+    private LinearLayout loanemi,sipcal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,7 @@ public class dashboard extends AppCompatActivity {
         weatherd=findViewById(R.id.weatherd);
         serverd=findViewById(R.id.serverd);
         loanemi=findViewById(R.id.loanemi);
+        sipcal=findViewById(R.id.sipcal);
         usrd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +54,13 @@ public class dashboard extends AppCompatActivity {
            public void onClick(View v) {
 
                startActivity(new Intent(dashboard.this,emicalculator.class));
+           }
+       });
+       sipcal.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(new Intent(dashboard.this,calculatorsip.class));
+
            }
        });
 

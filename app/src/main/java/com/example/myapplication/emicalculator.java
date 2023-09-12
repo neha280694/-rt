@@ -192,7 +192,7 @@ public class emicalculator extends AppCompatActivity {
             entries.add(new PieEntry((float) emi, "Emi"));
             entries.add(new PieEntry(loanAmount, "Loan Amount"));
             entries.add(new PieEntry((interestRate / 100) * loanAmount, "Interest Paid"));
-            int[] colors = {getColor(R.color.colorAccent1), getColor(R.color.colorAccent), getColor(R.color.teal_200)};
+            int[] colors = {getColor(R.color.pie2), getColor(R.color.pie1), getColor(R.color.pie3)};
             // Create a PieDataSet
             PieDataSet dataSet = new PieDataSet(entries, "");
             dataSet.setColors(colors);
