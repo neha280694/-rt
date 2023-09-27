@@ -12,7 +12,7 @@ public class dashboard extends AppCompatActivity {
   private LinearLayout usrd;
   private LinearLayout weatherd;
     private TextView serverd;
-    private LinearLayout loanemi,sipcal;
+    private LinearLayout loanemi,sipcal,currency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +23,7 @@ public class dashboard extends AppCompatActivity {
         serverd=findViewById(R.id.serverd);
         loanemi=findViewById(R.id.loanemi);
         sipcal=findViewById(R.id.sipcal);
+        currency=findViewById(R.id.currency);
         usrd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +61,13 @@ public class dashboard extends AppCompatActivity {
            @Override
            public void onClick(View v) {
                startActivity(new Intent(dashboard.this,calculatorsip.class));
+
+           }
+       });
+       currency.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(new Intent(dashboard.this,currencyconverter.class));
 
            }
        });
