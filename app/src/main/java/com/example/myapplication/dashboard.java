@@ -12,7 +12,7 @@ public class dashboard extends AppCompatActivity {
   private LinearLayout usrd;
   private LinearLayout weatherd;
     private TextView serverd;
-    private LinearLayout loanemi,sipcal,currency;
+    private LinearLayout loanemi,sipcal,currency,patternlock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,7 @@ public class dashboard extends AppCompatActivity {
         loanemi=findViewById(R.id.loanemi);
         sipcal=findViewById(R.id.sipcal);
         currency=findViewById(R.id.currency);
+        patternlock=findViewById(R.id.patternlock);
         usrd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +72,16 @@ public class dashboard extends AppCompatActivity {
 
            }
        });
+       patternlock.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(new Intent(dashboard.this,lockscreenpattern.class));
+
+           }
+       });
 
     }
+
+
+
 }
