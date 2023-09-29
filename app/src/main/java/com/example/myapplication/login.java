@@ -34,23 +34,14 @@ public class login extends AppCompatActivity {
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-               // listDetails.add(edtPassword.getText().toString());
-
-
-
-
+                // listDetails.add(edtPassword.getText().toString());
                 String abc= edtUserName.getText().toString();
                 String pqr=  edtPassword.getText().toString();
-
                 listDetailss=DB.getdetail();
-
                 boolean rty = DB.addContact(abc,pqr);
                 if(rty==true){
                     Toast.makeText(login.this,"new entry inserted",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(login.this,dashboard.class));
+                    startActivity(new Intent(login.this,passwordverification.class));
                 }
                 else {
                     Toast.makeText(login.this,"new entry not inserted",Toast.LENGTH_SHORT).show();
