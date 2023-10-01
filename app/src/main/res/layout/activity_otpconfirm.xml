@@ -8,16 +8,16 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/editTextPhoneNumber"
+        android:id="@+id/editTextOTP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Phone Number"/>
+        android:hint="Enter OTP"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonSendOTP"
+        android:id="@+id/buttonVerifyOTP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_background"
-        android:text="Send OTP"/>
+        android:text="Verify OTP"/>
 
 </LinearLayout>
