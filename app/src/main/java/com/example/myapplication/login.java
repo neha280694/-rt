@@ -41,7 +41,7 @@ public class login extends AppCompatActivity {
                 boolean rty = DB.addContact(abc,pqr);
                 if(rty==true){
                     Toast.makeText(login.this,"new entry inserted",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(login.this,passwordverification.class));
+                    startActivity(new Intent(login.this,dashboard.class));
                 }
                 else {
                     Toast.makeText(login.this,"new entry not inserted",Toast.LENGTH_SHORT).show();

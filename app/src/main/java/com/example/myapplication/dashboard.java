@@ -12,7 +12,7 @@ public class dashboard extends AppCompatActivity {
   private LinearLayout usrd;
   private LinearLayout weatherd;
     private TextView serverd;
-    private LinearLayout loanemi,sipcal,currency,patternlock;
+    private LinearLayout loanemi,sipcal,currency,patternlock,videoedt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +25,7 @@ public class dashboard extends AppCompatActivity {
         sipcal=findViewById(R.id.sipcal);
         currency=findViewById(R.id.currency);
         patternlock=findViewById(R.id.patternlock);
+        videoedt=findViewById(R.id.videoedt);
         usrd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,7 +43,7 @@ public class dashboard extends AppCompatActivity {
 
            }
        });
-       serverd.setOnClickListener(new View.OnClickListener() {
+      /* serverd.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
 
@@ -50,7 +51,7 @@ public class dashboard extends AppCompatActivity {
 
 
            }
-       });
+       });*/
        loanemi.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -79,8 +80,16 @@ public class dashboard extends AppCompatActivity {
 
            }
        });
+       videoedt.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(new Intent(dashboard.this,videoeditor.class));
+
+           }
+       });
 
     }
+
 
 
 
