@@ -8,27 +8,22 @@
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".MainActivity">
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/galleryButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:background="@drawable/button_background"
-        android:text="Select Video from Gallery" />
-
     <VideoView
         android:id="@+id/videoView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:visibility="gone" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/editButton"
+        android:id="@+id/galleryButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Edit Video"
-        android:visibility="gone" />
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:background="@drawable/button_background"
+        android:text="Select Video from Gallery" />
+
+
 </LinearLayout>

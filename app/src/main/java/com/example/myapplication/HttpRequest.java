@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,6 +19,7 @@ public class HttpRequest {
             int status = connection.getResponseCode();
             if (status != HttpURLConnection.HTTP_OK)
                 is = connection.getErrorStream();
+
             else
                 is = connection.getInputStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is));
